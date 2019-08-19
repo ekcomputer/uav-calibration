@@ -3,7 +3,7 @@ clear; close all
 
 %% user params
 inPAD=1;
-
+savecnv=1; % save output convolved struct
 %% other params
 
 if inPAD
@@ -77,8 +77,10 @@ end
 
 %% save convolution structure w theoretical refl valuees for each panel in R G N
 
+if save_cnv
 save(cnv_pth, 'convolved');
 fprintf('Convolved struct saved to %s.\n', cnv_pth);
+end
 %% TODO: beyond 700 ... need better SRF
 % better integration w movmean
 % make helper function to save with overwrite prompt and success message w

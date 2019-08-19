@@ -2,7 +2,7 @@
 % TODO: replace impoly with impoint and floodfill
 clear; close all
 %% user params
-selectpanels=0; % load panels from file
+selectpanels=1; % load panels from file
 
 %% load image
 RGN=imread('C:\Users\lsmith.DESKTOP-JJ8STSU\Desktop\ETHAN\mapir_cal_test\2019_0811_183448_349.JPG');
@@ -18,6 +18,8 @@ if selectpanels==1
     for i=1:6
 %         p(i).poly=impoly(gca);
 %         panel(i).mask=p(i).poly.createMask;
+        panel(i).seed=impoint(gca);
+        panel(i).mask=floodFillFromPt(RGN, panel(i).seed.getPosition, 0.03);
         panel(i).vals_R=R(panel(i).mask);
         panel(i).vals_G=G(panel(i).mask);
         panel(i).vals_N=N(panel(i).mask);
