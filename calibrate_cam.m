@@ -3,6 +3,10 @@
 clear; close all
 %% user params
 selectpanels=1; % load panels from file
+tolerance=0.02; % for flood fille
+%% other params
+panel_colors={'pink', 'grey', 'black', 'yellow', 'white', 'red'};
+labels=categorical(panel_colors);
 
 %% load image
 RGN=imread('C:\Users\lsmith.DESKTOP-JJ8STSU\Desktop\ETHAN\mapir_cal_test\2019_0811_183448_349.JPG');
@@ -11,15 +15,19 @@ mp=numel(RGN(:,:,1)); % size in megapixels
 R=RGN(:,:,1);
 G=RGN(:,:,2);
 N=RGN(:,:,3);
+
 %% select cal panels
 % panel order: 1-pink, 2-grey, 3-black, 4-yellow, 5-white, 6-red
 if selectpanels==1
-    pause(1)
+    zoom on
+    disp('Zoom in to calibration panels, then press any key.'); pause
+    zoom off
     for i=1:6
 %         p(i).poly=impoly(gca);
 %         panel(i).mask=p(i).poly.createMask;
+        fprintf('Select %s calibration panel.\n', panel_colors{i})
         panel(i).seed=impoint(gca);
-        panel(i).mask=floodFillFromPt(RGN, panel(i).seed.getPosition, 0.03);
+        panel(i).mask=floodFillFromPt(RGN, panel(i).seed.getPosition, tolerance);
         panel(i).vals_R=R(panel(i).mask);
         panel(i).vals_G=G(panel(i).mask);
         panel(i).vals_N=N(panel(i).mask);
@@ -33,7 +41,6 @@ end;
 fprintf('\tFinished selecting panels.\n')
 
 %% plot cal panel reflectances
-labels=categorical({'pink', 'grey', 'black', 'yellow', 'white', 'red'});
 figure;
 subplot(311); h1=bar([panel.meanValueR], 'r'); title('Red band'); set(gca, 'XTickLabel', {})
 subplot(312); h2=bar([panel.meanValueG], 'g'); title('Green band'); set(gca, 'XTickLabel', {})
