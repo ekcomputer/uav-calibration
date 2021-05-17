@@ -2,8 +2,9 @@
 clear; close all
 
 %% user params
-inPAD=1;
-savecnv=1; % save output convolved struct
+inPAD=0;
+save_cnv=0; % save output convolved struct
+useSRF=0; % use spectral response function, or assume flat for testing
 %% other params
 
 if inPAD
@@ -49,7 +50,12 @@ figure; plot(wl, rgn_t, '-'); axis(xy_lim); title('RGN filter transmitance')
 colors={'b','g','r'};
 figure; hold on
 for i=1:3
-    SRF.SRF_rs{i}=interp1(SRF.SRF{i}(:,1),SRF.SRF{i}(:,2), wl);
+    if useSRF
+        SRF.SRF_rs{i}=interp1(SRF.SRF{i}(:,1),SRF.SRF{i}(:,2), wl);
+    else
+        SRF.SRF_rs{i}=ones(size(wl));
+        disp('No SRF applied.')
+    end
 %     figure(20); hold on; plot(SRF.SRF{i}(:,1),SRF.SRF{i}(:,2), colors{i}); 
     plot(wl,SRF.SRF_rs{i}, colors{i}); %% here use srf_t
 
@@ -69,7 +75,8 @@ for i=1:15 % iterate over panels
         convolved(i).(sprintf('mean_%s',bands{j}))=cnv(2:end)'*diff(wl)/range(wl); % average integral
         subplot(3,1,j); plot(wl, rescale(cnv));
         title(sprintf('Panel: %s\nBand: %s',labs{i}, bands{j}))
-        axis(xy_lim); 
+        % axis(xy_lim); 
+        xlim([400 900])
 %         pause(0.1);
     end
     pause(0.5)
