@@ -1,10 +1,11 @@
-#matlab files
+# binary matlab files
 *.mlx -crlf -diff -merge
 *.mat -crlf -diff -merge
 *.fig -crlf -diff -merge
 *.p -crlf -diff -merge
 *.slx -crlf -diff -merge
 *.mdl -crlf -diff -merge
+*.asv -crlf -diff -merge
 
 # other common files
 
@@ -17,7 +18,8 @@
 *.xlsx -crlf -diff -merge
 *.docx -crlf -diff -merge
 *.pdf -crlf -diff -merge
-*.jpg -crlf -diff -merge
+#*.jpg -crlf -diff -merge
 *.png -crlf -diff -merge
 
-#*.m text=auto
+# use for git!
+*.m text eol=crlf diff=matlab
