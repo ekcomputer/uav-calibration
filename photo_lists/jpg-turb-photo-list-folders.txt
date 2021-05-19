@@ -1,0 +1,9 @@
+./Roberts_Cabin_Pond_0809/Phantom_MapIR
+./Roberts_Cabin_Pond_0809/MAPIR_TurbidityTests
+./QuartreFourche_Rocher0809/GoPro
+./Turbidity_QF_Roche_0809/100GOPRO
+./Turbidity_Embaras_CreeCreeCutoff_0810/100GOPRO
+./Turbidity_ADP_RecoveryDay0811/Phantom_MapIR
+./IceSat2Day_LakeAthabasca_0812/Phantom_MapIR
+./Richardson_0813/Phantom_MapIR
+./Limon0818/Phantom_MapIR/DCIM/Photo
