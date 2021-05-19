@@ -1,3 +1,7 @@
+% Workflow for determining what IR camera should be seeing for each
+% calibration panel. Doesn't use matrix multiplication approach, but it
+% should (TODO).
+
 %% data import
 clear; close all
 
@@ -14,11 +18,11 @@ if inPAD
     srf_pth='C:\Users\lsmith.DESKTOP-JJ8STSU\Google Drive\Research\Files\PAD\ASD\SRF.mat';
     cnv_pth='C:\Users\lsmith.DESKTOP-JJ8STSU\Google Drive\Research\Files\PAD\ASD\convolved.mat';
 else
-    labs_pth='D:\GoogleDrive\Research\Files\PAD\ASD\Labels.txt';
-    trans_pth='D:\GoogleDrive\Research\Files\PAD\ASD\RGN_transmittance.xlsx';
-    asd_pth='D:\GoogleDrive\Research\Files\PAD\ASD\EVA_Foam_All_Processed.xlsx';
-    srf_pth='D:\GoogleDrive\Research\Files\PAD\ASD\SRF.mat';
-    cnv_pth='D:\GoogleDrive\Research\Files\PAD\ASD\convolved.mat';
+    labs_pth='D:\GoogleDrive\Research\Files\PAD\2019_ASD_backup\Labels.txt';
+    trans_pth='D:\GoogleDrive\Research\Files\PAD\2019_ASD_backup\RGN_transmittance.xlsx';
+    asd_pth='D:\GoogleDrive\Research\Files\PAD\2019_ASD_backup\EVA_Foam_All_Processed.xlsx';
+    srf_pth='D:\GoogleDrive\Research\Files\PAD\2019_ASD_backup\SRF.mat';
+    cnv_pth='D:\GoogleDrive\Research\Files\PAD\2019_ASD_backup\convolved.mat';
 end
 
 %% data import
@@ -45,7 +49,7 @@ rgn_t_raw=xlsread(trans_pth,1);
 rgn_t=spline(rgn_t_raw(:,1),rgn_t_raw(:,2)/100, wl);
 figure; plot(wl, rgn_t, '-'); axis(xy_lim); title('RGN filter transmitance')
 
-%% resamplpe SRF
+%% resample SRF
     % SRF is in strange format of cell wi struct
 colors={'b','g','r'};
 figure; hold on
@@ -63,6 +67,7 @@ end
 hold off
 title('Sensor response functions'); 
 legend({'Blue', 'Green', 'Red'}); axis([400 700 0 1]);
+
 %% multiply transmitance by reflectance curves
 % *** need to account for camera spectral response function (SRF)
 bands={'R', 'G', 'N'};
@@ -88,6 +93,7 @@ if save_cnv
 save(cnv_pth, 'convolved');
 fprintf('Convolved struct saved to %s.\n', cnv_pth);
 end
+
 %% TODO: beyond 700 ... need better SRF
 % better integration w movmean
 % make helper function to save with overwrite prompt and success message w

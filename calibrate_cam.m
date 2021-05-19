@@ -57,10 +57,7 @@ subplot(313); h3=bar(labels, [panel.meanValueN], 'm'); title('NIR band')
 
 %% load actual reflectance values per panel color
 
-
-
-   
-
+% TODO!  
 
 %% select water via flood fill
 
@@ -78,3 +75,7 @@ normX = sum((X - X(row,column,:)).^2,3);
 normX = mat2gray(normX);
 addedRegion = grayconnected(normX, row, column, tolerance);
 BW = BW | addedRegion;
+
+%% Compute water reflectance using calibration curve
+
+% TODO!  
