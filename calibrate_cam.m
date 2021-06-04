@@ -12,7 +12,9 @@ labels=categorical(panel_colors);
 % RGN=imread('C:\Users\lsmith.DESKTOP-JJ8STSU\Desktop\ETHAN\mapir_cal_test\2019_0811_183448_349.JPG');
 % RGN=imread('C:\Users\lsmith.DESKTOP-JJ8STSU\Desktop\ETHAN\mapir_cal_test\part3\Processed_1\2019_0812_160547_213.tif');
 % RGN=imread('C:\Users\lsmith.DESKTOP-JJ8STSU\Desktop\ETHAN\mapir_cal_test\part3\Processed_1\2019_0812_122030_127.tif');
-RGN=imread('F:\PAD2019\mapir_cal_test\part3\Processed_1\2019_0812_122030_127.tif');
+% RGN=imread('F:\PAD2019\mapir_cal_test\part3\Processed_1\2019_0812_122030_127.tif');
+RGN=imread('Sample_images\2019_0812_122030_127.tif');
+
 for i=1:3
     RGN_stretch(:,:,i)=imadjust(RGN(:,:,i));
 end
