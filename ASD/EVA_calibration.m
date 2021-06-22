@@ -9,6 +9,7 @@ clear; close all
 inPAD=0;
 save_cnv=0; % save output convolved struct
 useSRF=0; % use spectral response function, or assume flat for testing
+
 %% other params
 
 if inPAD
@@ -28,14 +29,17 @@ end
 %% data import
 asd=xlsread(asd_pth,1);
 SRF=load(srf_pth);
+
 %% open files
 wl=asd(:,1);
 fid=fopen(labs_pth, 'r');
-labs=textscan(fid, '%s'); labs=labs{:};
+labs=textscan(fid, '%s'); labs=labs{:}; % This text file gives the panel color order as listed in the 'EVA_Foam_All_Processed.xlsx' file. Each of 15 panels are measured in triplicate, giving 45 spectra.
 fclose(fid);
 xy_lim=[500, 900, 0, 1];
+
 %% average spectra
 for i=1:15
+    % Spectra have 2151 channels from 350 to 2500 nm
     spect(:,i)=mean(asd(:,3*i-1:3*i+1), 2);
     subplot(3,5,i)
     plot(wl, spect(:,i), '.'); title(labs{i})
@@ -90,8 +94,8 @@ end
 %% save convolution structure w theoretical refl valuees for each panel in R G N
 
 if save_cnv
-save(cnv_pth, 'convolved');
-fprintf('Convolved struct saved to %s.\n', cnv_pth);
+    save(cnv_pth, 'convolved');
+    fprintf('Convolved struct saved to %s.\n', cnv_pth);
 end
 
 %% TODO: beyond 700 ... need better SRF

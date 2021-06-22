@@ -1,9 +1,11 @@
 % script to calibrate NIR camera to reflectance
 % TODO: replace impoly with impoint and floodfill
 clear; close all
+
 %% user params
 selectpanels=1; % load panels from file
 tolerance=0.008; % for flood fill
+
 %% other params
 panel_colors={'pink', 'grey', 'black', 'yellow', 'white', 'red'};
 labels=categorical(panel_colors);
