@@ -1,5 +1,5 @@
 # uav-calibration
-Matlab scripts for calibrating NIR UAV for water quality management.
+Matlab scripts for calibrating NIR UAV for water quality remote sensing.
 
 Welcome to my camera calibration repo! Note that these workflows aren't necessarily the best way to approach the problem! Hopefully, they will be useful for providing starter code and demoing how to work with the data and make plots.
 
