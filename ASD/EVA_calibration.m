@@ -8,16 +8,16 @@ clear; close all
 %% user params
 inPAD=0;
 save_cnv=0; % save output convolved struct
-useSRF=0; % use spectral response function, or assume flat for testing
+useSRF=1; % use spectral response function, or assume flat for testing
 
 %% other params
 
 if inPAD
-    labs_pth='C:\Users\lsmith.DESKTOP-JJ8STSU\Google Drive\Research\Files\PAD\ASD\Labels.txt';
-    trans_pth='C:\Users\lsmith.DESKTOP-JJ8STSU\Google Drive\Research\Files\PAD\ASD\RGN_transmittance.xlsx';
-    asd_pth='C:\Users\lsmith.DESKTOP-JJ8STSU\Google Drive\Research\Files\PAD\ASD\EVA_Foam_All_Processed.xlsx';
-    srf_pth='C:\Users\lsmith.DESKTOP-JJ8STSU\Google Drive\Research\Files\PAD\ASD\SRF.mat';
-    cnv_pth='C:\Users\lsmith.DESKTOP-JJ8STSU\Google Drive\Research\Files\PAD\ASD\convolved.mat';
+    labs_pth='C:\Users\lsmith.DESKTOP-JJ8STSU\Google Drive\Research\Files\PAD\2019_ASD_backup\Labels.txt';
+    trans_pth='C:\Users\lsmith.DESKTOP-JJ8STSU\Google Drive\Research\Files\PAD\2019_ASD_backup\RGN_transmittance.xlsx';
+    asd_pth='C:\Users\lsmith.DESKTOP-JJ8STSU\Google Drive\Research\Files\PAD\2019_ASD_backup\EVA_Foam_All_Processed.xlsx';
+    srf_pth='C:\Users\lsmith.DESKTOP-JJ8STSU\Google Drive\Research\Files\PAD\2019_ASD_backup\SRF.mat';
+    cnv_pth='C:\Users\lsmith.DESKTOP-JJ8STSU\Google Drive\Research\Files\PAD\2019_ASD_backup\convolved.mat';
 else
     labs_pth='D:\GoogleDrive\Research\Files\PAD\2019_ASD_backup\Labels.txt';
     trans_pth='D:\GoogleDrive\Research\Files\PAD\2019_ASD_backup\RGN_transmittance.xlsx';
@@ -82,7 +82,7 @@ for i=1:15 % iterate over panels
         cnv(isnan(cnv))=0; % hot fix to allow cnv to be multiplied
         convolved(i).(sprintf('spectra_%s',bands{j}))=cnv; % to have A SHORTER  vAR NAME
         convolved(i).(sprintf('mean_%s',bands{j}))=cnv(2:end)'*diff(wl)/range(wl); % average integral
-        subplot(3,1,j); plot(wl, rescale(cnv));
+        subplot(3,1,j); plot(wl, cnv); % To find constant reflectance values to use for camera calibration: take area under curve for each camera band for each of the 6 panel colors used in field (as plotted here)
         title(sprintf('Panel: %s\nBand: %s',labs{i}, bands{j}))
         % axis(xy_lim); 
         xlim([400 900])

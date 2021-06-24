@@ -1,4 +1,5 @@
 % Run after first cells of EVA_calibration.m (up to '%% resample SRF')
+% Or save/load 'spect' from disk ( avg spectra of cal panels)
 
 % clear;
 addpath .. % adds select_panels function to path
